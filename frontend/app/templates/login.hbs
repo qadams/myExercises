@@ -1,0 +1,36 @@
+<div class="row">
+	{{!-- Make more mobile friendly--}}
+	<div class="col-sm-6 col-md-4 login-box shadow-2" >
+		<form>
+				<div class="row login-box">
+					<div class="col-sm-12 col-md-10 col-md-offset-1">
+						{{#if auth.errorMsg}}
+						<div class="alert alert-danger">
+							<p style="text-align: center;">Incorrect username/password</p>
+						</div>
+						{{/if}}
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-user"></i>
+								</span>
+								{{input type="text" class="input-sm form-control" value=auth.username enter="login" placeholder="Username" autofocus="autofocus"}}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">
+									<i class="glyphicon glyphicon-lock"></i>
+								</span>
+								{{input type="text"class="input-sm form-control" value=auth.password enter="login" placeholder="Password" type="password"}}
+							</div>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in" {{action "login"}}>
+						</div>
+					</div>
+				</div>
+
+		</form>
+	</div>
+</div>

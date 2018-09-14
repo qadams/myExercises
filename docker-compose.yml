@@ -1,0 +1,45 @@
+# @Author: Matthew Hale <matthale>
+# @Date:   2017-09-05T12:29:08-05:00
+# @Email:  mlhale@unomaha.edu
+# @Filename: docker-compose.yml
+# @Last modified by:   matthale
+# @Last modified time: 2018-09-06T15:21:50-05:00
+# @Copyright: Copyright (C) 2018 Matthew L. Hale
+
+
+
+version: "2"
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "80:8000"
+    volumes:
+      - ./backend:/var/www/backend
+      - ./prod/nginx:/etc/nginx/conf.d
+      - ./prod/logs:/var/logs/nginx
+    depends_on:
+      - django
+  django:
+    build: .
+    restart: always
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py migrate && gunicorn django_backend.wsgi -w 8 -t 300 -b 0.0.0.0:8000"
+    volumes:
+      - ./backend:/var/www/backend
+    expose:
+     - "8000"
+    depends_on:
+     - db
+  db:
+    restart: always
+    image: postgres
+    volumes:
+      - postgres-config:/etc/postgresql
+      - postgres-data:/var/lib/postgresql/data
+      - postgres-logs:/var/log/postgresql
+      - ./database-backup:/database-backup
+volumes:
+  postgres-config:
+  postgres-data:
+  postgres-logs:

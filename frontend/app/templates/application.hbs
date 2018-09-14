@@ -1,0 +1,49 @@
+<div class="container-fluid" id="app-main">
+	<div class="row row-offcanvas row-offcanvas-left {{showMenu}}">
+		<!--   *** SIDEBAR ***-->
+		<div id="sidebar" class="col-xs-6 col-sm-4 col-md-3 sidebar-offcanvas">
+			<div class="sidebar-content">
+				{{#link-to 'index'}}
+				    <p class="sidebar-p"><img src="{{constants.rootURL}}img/NGC-logo.png" width="100%" class="img-rounded"/></p>
+        {{/link-to}}
+        <h4>Dashboard Demo App</h4>
+				<!-- <p class="sidebar-p"></p> -->
+
+				<ul class="sidebar-menu">
+
+					{{#if auth.isLoggedIn}}
+						Logged in as: {{auth.username}} (<a {{action "logout"}}>Logout</a>)
+					{{else}}
+						{{#active-link}}{{#link-to 'login'}}Login{{/link-to}}{{/active-link}}
+					{{/if}}
+					{{#active-link}}{{#link-to 'index'}}Home{{/link-to}}{{/active-link}}
+				</ul>
+				<p class="social">
+					<a href="https://github.com/MLHale/" data-animate-hover="pulse" target="_blank" class="external facebook"><i class="fa fa-github"></i></a>
+					<a href="https://scholar.google.com/citations?user=YGtxqR4AAAAJ&hl" data-animate-hover="pulse" target="_blank" class="external facebook"><i class="fa fa-google"></i></a>
+					<a href="https://twitter.com/mlhale_" target="_blank" data-animate-hover="pulse" class="external twitter"><i class="fa fa-twitter"></i></a>
+					<a href="mailto:mlhale@unomaha.edu" target="_blank" data-animate-hover="pulse" class="email"><i class="fa fa-envelope"></i></a></p>
+				<div class="copyright">
+					<p class="credit">&copy;2017 Dr. Matthew Hale</p>
+
+
+				</div>
+			</div>
+			{{#if auth.isLoggedIn}}
+	      <div class="col-xs-12">
+
+	        <div class="btn btn-block btn-lg btn-success" {{action 'activateIFTTT'}}><span class="glyphicon glyphicon-play"></span> Turn IFTTT On</div>
+	      </div>
+			{{/if}}
+		</div>
+		<!--   *** SIDEBAR END ***  -->
+		<div class="col-xs-12 col-sm-8 col-md-9 content-column">
+			<div class="small-navbar visible-xs">
+				<button type="button" data-toggle="offcanvas" class="btn btn-ghost pull-left" {{action 'toggleMenu'}}> <i class="fa fa-align-left"> </i>Menu</button>
+				<h1 class="small-navbar-heading">{{#link-to 'index'}}CYBR8470 Demo APP{{/link-to}}</h1>
+			</div>
+			{{liquid-outlet "main"}}
+		</div>
+	</div>
+
+</div>

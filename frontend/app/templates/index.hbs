@@ -1,0 +1,50 @@
+<!--   *** PORTFOLIO ***-->
+
+{{#if content}}
+	{{#masonry-grid items=content customLayout=true gutter=10 as |item index grid|}}
+		{{#masonry-item item=item grid=grid class="box-masonry col-xs-12 col-sm-6 col-md-3 col-lg-3"}}
+			{{#if item.link}}
+				{{#link-to item.link class="box-masonry-image with-hover-overlay with-hover-icon"}}
+					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
+				{{/link-to}}
+			{{else if item.link_external}}
+				<a href="{{item.link_external}}" target="_blank" class="box-masonry-image with-hover-overlay with-hover-icon">
+					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
+				</a>
+			{{else}}
+				<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
+			{{/if}}
+			<div class="box-masonry-text">
+				<h5>(ID: {{item.id}}) {{item.eventtype}}</h5>
+				<div class="box-masonry-desription">
+					<p>{{moment-format item.timestamp 'dddd MMMM Do YYYY h:mm:ss a'}}</p>
+				</div>
+			</div>
+		{{/masonry-item}}
+	{{/masonry-grid}}
+{{else}}
+	{{#masonry-grid items=defaultitems customLayout=true gutter=10 as |item index grid|}}
+		{{#masonry-item item=item grid=grid class="box-masonry col-xs-12 col-sm-6 col-md-5 col-lg-5"}}
+			{{#if item.link}}
+				{{#link-to item.link class="box-masonry-image with-hover-overlay with-hover-icon"}}
+					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
+				{{/link-to}}
+			{{else if item.link_external}}
+				<a href="{{item.link_external}}" target="_blank" class="box-masonry-image with-hover-overlay with-hover-icon">
+					<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
+				</a>
+			{{else}}
+				<img src="{{constants.rootURL}}{{item.img}}" class="img-responsive">
+			{{/if}}
+			<div class="box-masonry-text">
+				<h4> <a href="#">{{item.title}}</a></h4>
+				<div class="box-masonry-desription">
+					<p>{{item.description}}</p>
+				</div>
+			</div>
+		{{/masonry-item}}
+	{{/masonry-grid}}
+{{/if}}
+
+<!--   *** PORTFOLIO END ***
+-->
