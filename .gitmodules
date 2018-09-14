@@ -1,6 +1,0 @@
-[submodule "backend"]
-	path = backend
-	url = https://github.com/qadams/CYBR8470-building-a-webservice-lab-backend
-[submodule "frontend"]
-	path = frontend
-	url = https://github.com/qadams/CYBR8470-building-a-webservice-lab-frontend
