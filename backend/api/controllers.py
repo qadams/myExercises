@@ -40,6 +40,7 @@ import json, datetime, pytz
 from django.core import serializers
 import requests
 
+from api.serializers import DogSerializer
 
 def home(request):
    """
@@ -104,6 +105,7 @@ class Session(APIView):
 
     def post(self, request, *args, **kwargs):
         # Login
+        # parse the parameters
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
@@ -129,3 +131,95 @@ class ActivateIFTTT(APIView):
     permission_classes = (AllowAny,)
     parser_classes = (parsers.JSONParser,parsers.FormParser)
     renderer_classes = (renderers.JSONRenderer, )
+
+class DogList(APIView):
+    def get(self, request, format=None):
+        dogItems = Dog.objects.all()
+        serializer = DogSerializer(dogItems, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        # parse the parameters, create it, save it, send reponse
+        serializer = DogSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DogDetail(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Dog.ojects.get(pk=pk)
+        except Dog.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        dog = self.get_object(pk)
+        serializer = DogSerializer(dog)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        dog = self.get_object(pk)
+        serializer = DogSerializer(dog, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Reponse(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        dog = self.get_object(pk)
+        dog.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class BreedList(APIView):
+    def get(self, request, format=None):
+        breedItems = Breed.objects.all()
+        serializer = BreedSerializer(breedItems, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        # parse the parameters, create it, save it, send reponse
+        serializer = BreedSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BreedDetail(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Breed.ojects.get(pk=pk)
+        except Breed.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        breed = self.get_object(pk)
+        serializer = BreedSerializer(breed)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        breed = self.get_object(pk)
+        serializer = BreedSerializer(breed, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Reponse(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        breed = self.get_object(pk)
+        breed.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+#    def get(self, request, pk, *args, **kwargs):
+#        # Fetch single and send into response
+#    def put(self, request, pk, format=None):
+#         # fetch it, parse new parameters, change it, save it, send response
+#    def delete(self, request, pk, format=None):
+#         # fetch it, delete it, save it, send response
+#        return Response(status=status.HTTP_200_NO_CONTENT)
+#        #dog = Dog.objects.get(id=pk)
+
