@@ -40,7 +40,7 @@ import json, datetime, pytz
 from django.core import serializers
 import requests
 
-from api.serializers import DogSerializer
+from api.serializers import DogSerializer, BreedSerializer
 
 def home(request):
    """
@@ -151,7 +151,7 @@ class DogDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Dog.ojects.get(pk=pk)
+            return Dog.objects.get(pk=pk)
         except Dog.DoesNotExist:
             raise Http404
 
@@ -192,7 +192,7 @@ class BreedDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Breed.ojects.get(pk=pk)
+            return Breed.objects.get(pk=pk)
         except Breed.DoesNotExist:
             raise Http404
 

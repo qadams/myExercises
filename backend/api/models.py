@@ -41,7 +41,7 @@ class Dog(models.Model):
 
 class DogAdmin(admin.ModelAdmin):
 #    list_display = ('name', 'age', 'breed', 'gender', 'color', 'favoritefood', 'favoritetoy',)
-    list_display = "__all__"
+    list_display = ('id',)
 
 class Breed(models.Model):
     name = models.TextField(blank=False)
@@ -54,4 +54,4 @@ class Breed(models.Model):
 
 class BreedAdmin(admin.ModelAdmin):
 #    list_display = ('name', 'size', 'friendliness', 'trainability', 'sheddingamount', 'exerciseneeds',)
-    list_display = "__all__"
+    list_display = ('id',)

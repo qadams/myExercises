@@ -5,7 +5,7 @@ from rest_framework import routers
 
 from api import controllers
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.urlpatterns import format_suffix_patterns
+#from rest_framework.urlpatterns import format_suffix_patterns
 #REST API routes
 router = routers.DefaultRouter(trailing_slash=False)
 
@@ -21,4 +21,4 @@ urlpatterns = [
     url(r'^', include(router.urls)),
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+#urlpatterns = format_suffix_patterns(urlpatterns)
