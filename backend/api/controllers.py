@@ -206,7 +206,7 @@ class BreedDetail(APIView):
         serializer = BreedSerializer(breed, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Reponse(serializer.data)
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
